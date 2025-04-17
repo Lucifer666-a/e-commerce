@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Halaman Produk</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #000000;
+    }
+
+    .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    background-color: #5c2020;
+    gap: 20px;
+    flex-wrap: nowrap;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .logo {
+    height: 50px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 20px;
+  }
+
+  .nav-links a {
+    color: rgb(197, 44, 44);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+
+  .nav-links a:hover {
+    color: #69916f;
+  }
+
+  .header-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    min-width: 300px;
+  }
+
+  .search-bar {
+    padding: 12px 20px;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 60px;
+    border: 2px solid #5a9c34;
+    background-color: #000;
+    color: white;
+    transition: all 0.3s ease;
+  }
+
+  .search-bar::placeholder {
+    color: #aaa;
+  }
+
+  .search-bar:hover {
+    border-color: rgb(4, 154, 39);
+    background-color: #1b231b;
+  }
+
+  .header-right {
+    flex: 0;
+    display: flex;
+    align-items: center;
+    color: white;
+  }
+
+  .cart {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  }
+
+  .cart-popup {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 70px;
+  background-color: #03970d;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 250px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  z-index: 1000;
+}
+
+.cart-popup ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.cart-popup li {
+  padding: 5px 0;
+  border-bottom: 1px solid #444;
+}
+
+.cart-popup button {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: #5a9c34;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: white;
+}
+
+.cart-popup button:hover {
+  background-color: #4a8129;
+}
+
+.slider-container {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    height: 250px;
+    overflow: hidden;
+    margin: 20px auto;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  }
+
+  .slider-wrapper {
+    display: flex;
+    width: 300%;
+    height: 100%;
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .slider-slide {
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .slider-nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    padding: 0 15px;
+  }
+
+  .slider-nav button {
+    background: rgba(0,0,0,0.5);
+    border: none;
+    color: white;
+    font-size: 20px;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 50%;
+  }
+
+  .slider-nav button:hover {
+    background: rgba(0,0,0,0.7);
+  }
+
+
+    .product-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .product-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 200px;
+      border: 2px solid #4ebc04;
+      background: #000000;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(109, 86, 86, 0.05);
+      overflow: hidden;
+      transition: transform 0.2s ease;
+      position: relative;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .product-card h3 {
+      font-size: 14px;
+      margin: 10px;
+      color: #ffffff;
+    }
+
+    .product-card p {
+      margin: 0 10px 10px;
+      color: #ffffff;
+      font-weight: bold;
+    }
+
+    .add-to-cart {
+      display: block;
+      background: #2fc262;
+      color: rgb(27, 103, 51);
+      text-align: center;
+      margin: 10px;
+      padding: 7px;
+      border-radius: 100px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .add-to-cart:hover {
+      background-color: #02250e;
+      color: rgb(58, 155, 6);
+    }
+  </style>
+  
+</head>
+
+<body>
+  
+<!-- Header -->
+<div style="display: flex; align-items: center; justify-content: space-between; padding: 20px 40px; background-color: #000; gap: 20px; position: relative;">
+  
+  <!-- Kiri: Logo & Menu -->
+  <div style="display: flex; align-items: center; gap: 30px;">
+    <img src="logo.png" alt="FHN" style="height: 50px;">
+    <nav style="display: flex; gap: 20px;">
+      <a href="#" style="color: white; text-decoration: none;">Beranda</a>
+      <a href="#" style="color: white; text-decoration: none;">Produk</a>
+      <a href="#" style="color: white; text-decoration: none;">Tentang</a>
+    </nav>
+  </div>
+
+  <!-- Tengah: Search -->
+  <input type="text" class="search-bar" placeholder="Cari produk...">
+
+  <!-- Kanan: Cart -->
+  <div style="position: relative;">
+    <div class="cart" onclick="toggleCartPopup()" style="cursor: pointer; color: white;">
+      🛒 <span id="cart-count">0</span>
+    </div>
+
+    <!-- Pop-up Cart -->
+    <div id="cart-popup" class="cart-popup">
+      <h4>Keranjang Belanja</h4>
+      <div id="cart-items"></div>
+      <button onclick="toggleCartPopup()">Tutup</button>
+    </div>
+  </div>
+</div>
+
+    <!-- Banner -->
+    <div class="slider-container">
+      <div class="slider-wrapper" id="slider">
+        <div class="slider-slide" style="background-image: url('1b.png');"></div>
+        <div class="slider-slide" style="background-image: url('1c');"></div>
+        <div class="slider-slide" style="background-image: url('1d.png');"></div>
+      </div>
+      <div class="slider-nav">
+        <button onclick="moveSlide(-1)">❮</button>
+        <button onclick="moveSlide(1)">❯</button>
+      </div>
+    </div>
+
+    <!-- ================= ini bagian produk ========================== -->
+<div class="product-grid">
+
+    
+    <!-- Contoh Produk (copy bagian ini untuk produk lain) -->
+    <div class="product-card">
+      
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjzDCZMm7KwO_TQH1xc7tE1UYuFAgYe4VCd7Gnu8OEja3VWYZtA5vOcd2usFh0i2RofhIMACS7Box3LoXGDrKDz2vQD8-ElLxI76HdiUzOjo_YSqgedaa_MDyVS1ym5rGinO-Rska2ODsJFSteIQI3xx_ZaEp5WBKqEyXZ8MQf1R8fZOFBcRqxCu-jGfriM/s320/sempak.jpg" alt="Sempak">
+      <h3>Sempak legend (Used)</h3>
+      <p>Rp.50.000</p>
+      <button class="add-to-cart" data-nama="Sempak legend" data-harga="50.000">🛒</button>
+    </div>
+
+    <div class="product-card">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi6CrANoCeXqom1oUwr9uFRtQi_bkW4mIHqZA1buQXObacdAxGcgPak8gnaJvPltqFXMyZOD0PI-cXwWyWqehaxBBlxiwfU_EudfwVhdFdY5YPTuSVG5y9deqsdrGDtpzJs6r29VwQJRxG_YywjQfMAf814vr5aHkgoL2QQnJ48F18K8pC559Ddj3G1Fr6g/w176-h204/biribiri.jpg" alt="Biri-biri imut">
+      <h3>Biri-biri imut (Makanan favorit: Anak kecil)</h3>
+      <p>Rp.5.500.000 / Ekor</p>
+      <button class="add-to-cart" data-nama="Biri-biri" data-harga="5.500.000">🛒</button>
+    </div>
+
+    <div class="product-card">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjLkfnhEVvJ7rryBMVkMI9fUa2gniOCBRq8WW7ARaHb1xYMN0BLk4RR_GdO-o3T-lhTJvvHdvS6CaGysaeu50oJNGnyX7J0W97HGDAq2ieGz_dUUCTkieudf7UCsXRUdB-kP1lEZMEXcwW0e1Wx_dFmPQy5Rjyak9uO587jMaMXNRrt_Jhdtwf53HTntsu_/s320/ee2ee71f-ecb6-497f-9e60-e982a48ccbdc.jpg" alt="Nasi Kucing">
+      <h3>Nasi Kucing</h3>
+      <p>Rp.10.000</p>
+      <button class="add-to-cart" data-nama="Nasi Kucing" data-harga="10.000">🛒</button>
+    </div>
+
+    <div class="product-card">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEggEuKczazH2DwBVUDAa87fQGYSsY9ndb1a2Ag2V0hrildGJCp8FY5afg3AIOr8UxDDuX_yer1w7nt3iBUbBbA1xDN5IyI5DxOaH-ZxItKLaObhJAAIuREh9Io2Fa_H-c2T_P148wYt7UN5CF_maQytH8C1jqdPacDXlTKSeWkTub0SngJlofKS2LEfwcVw/s320/7402c563-7898-424e-902d-27c9863b20de.jpg" alt="Koin 10 Milyar">
+      <h3>Koin 10 Milyar</h3>
+      <p>Rp.640.000 / Koin</p>
+      <button class="add-to-cart" data-nama="Koin 10 Milyar" data-harga="640.000">🛒</button>
+    </div>
+
+    <div class="product-card">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhJ6PyasA5o5Gv13IwsqXNFl3dF20_UQfgEnyOx13un9XmZ9IYqdf86c8CmjMVeMLJN-BkhJkonwhyo6_dmp17pZ-ejJ7I2OHMkef6G17Uk3hg_UYGo9-EwF1r4EifeN6bPrRpXsA0vZF5lHgeIxCupA01y5eg6lyVxSCWMqaKBWpP_K0EJxA_bNhrxoqES/s320/14b84622-afe8-4dbc-9530-08d6d6cd9281.jpg" alt="Starbug">
+      <h3>Starbug</h3>
+      <p>Rp.99.000 (belum termasuk pipet)</p>
+      <button class="add-to-cart" data-nama="Starbug" data-harga="99.000">🛒</button>
+    </div>
+    
+    <div class="product-card">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgH786VBjqYQ6t-3RStApJePLr45T8ClH8HfOHQ0syKmtiRrUQAE3-9TuN6PhiUO097sODtBcRiYIvojULvCzwD0PbUxfRfs0BPY8iCxNMtulfBNQXmRtLqaIEc9YBG7poGjY1rGUftNYxbLq27pa6FR50dZZCrxA8zf2LCGGnouIA9FDHhGdtFjEllfFYS/s320/1031378f-7b91-47ab-b823-1ff596ba5671.jpg" alt="Penjaga Rumah">
+      <h3>Sewa Penjaga Rumah (tahan petir Zeus)</h3>
+      <p>Rp.10.000.000 / Minggu</p>
+      <button class="add-to-cart" data-nama="Penjaga Rumah" data-harga="10.000.000">🛒</button>
+    </div>
+    
+    <div class="product-card">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj7jPvaOOTnZ5rpYRpvecH6EntaevjHi1gcNHLJiCKNszoGOePf-0Ls_UsIXzyI2kkgnjTD1RBNiwjbcqJl2CRJGdJC7BYOHuEucV43MmKep301BtMykcP0FWWGcxo-XJAc55jNLsKOQxweXVcKw8UqMv7aelEwDUBuRXS4z3wDO3BqefTZNivhU27od9bJ/s320/fb4a75c5-ff1c-4d59-b173-bf9ff6cf1f35.jpg" alt="Gelas Nabi Adam">
+      <h3>Gelas Nabi Adam (kegedean NO RETURN!!)</h3>
+      <p>Rp.2.000.000</p>
+      <button class="add-to-cart" data-nama="Gelas Nabi Adam" data-harga="2.000.000">🛒</button>
+    </div>
+    
+    <div class="product-card">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhDw-kO5q2lhqW5A-anuDH5BrqzkYHEnb6O8Z-LBeZgA_U94krV09CHppZcnInbR5mUmBnBSzBNQixnAsEvpdD8YYNK8Ylhz404HvOs679pEgnGoqT1rUmphb2ilYJ5anMGICaWKfOXy74-eU09kC14o0LcvimVI45FIcHk9F20VNv9IbjTYpBY0Fs7s8lD/s320/download%20(1).jpg" alt="Lobster recink">
+      <h3>Lobster recink</h3>
+      <p>Rp.10.000.000 (Saddle dijual terpisah)</p>
+      <button class="add-to-cart" data-nama="Lobster recink" data-harga="10.000.000">🛒</button>
+    </div>
+    
+    <div class="product-card">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiXk9dv-6bfFiguf10O17g9hPifoJqqDsX_AFPGIGO6m5flJkh_MVAfBObv8mkCIj3auE6mvE45bX1Z4532bY28-ApRLCvDhuNj74RFqTZPgidxZVMiMpX7EtCqsGtfJ39jO6yeL_fT2zc-DurVULk0rOqBIE17flY_aD0IMf6gZmQSb7fyGg1nNbpL17I3/s320/download.jpg" alt="Mx kelebu">
+      <h3>Mx kelebu (Ambil di tempat)</h3>
+      <p>Rp.12.000.000</p>
+      <button class="add-to-cart" data-nama="Mx kelebu" data-harga="12.000.000">🛒</button>
+    </div>
+    
+
+  </div>
+
+  <script>
+    // ================= cart ========================== 
+console.log('Script loaded');
+
+    const cart = [];
+    const cartPopup = document.getElementById('cart-popup');
+    const cartItemsContainer = document.getElementById('cart-items');
+    const cartCount = document.getElementById('cart-count');
+  
+    // Toggle cart popup
+    function toggleCartPopup() {
+      cartPopup.style.display = (cartPopup.style.display === 'block') ? 'none' : 'block';
+    }
+  
+    // Update isi popup keranjang
+    function updateCartPopup() {
+      cartItemsContainer.innerHTML = '';
+      cart.forEach((item, index) => {
+        const itemEl = document.createElement('div');
+        itemEl.style.marginBottom = '10px';
+        itemEl.innerHTML = `${item.nama} - Rp${item.harga.toLocaleString('id-ID')} <button onclick="removeFromCart(${index})">Hapus</button>`;
+        cartItemsContainer.appendChild(itemEl);
+      });
+      cartCount.textContent = cart.length;
+    }
+  
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+  console.log('Register tombol:', button.getAttribute('data-nama'));
+  button.addEventListener('click', () => {
+    const nama = button.getAttribute('data-nama');
+    const hargaStr = button.getAttribute('data-harga').replace(/\./g, '');
+    const harga = parseInt(hargaStr);
+    console.log('Klik:', nama);
+    if (!isNaN(harga)) {
+      cart.push({ nama, harga });
+      updateCartPopup();
+    }
+  });
+});
+
+  
+    // Hapus item dari cart
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCartPopup();
+    }
+    window.removeFromCart = removeFromCart;
+  
+    // Tutup popup kalau klik di luar
+    document.addEventListener('click', function (e) {
+      if (!cartPopup.contains(e.target) && !e.target.closest('.cart')) {
+        cartPopup.style.display = 'none';
+      }
+    });
+
+    // ================= ini bagian produk ========================== 
+    let currentIndex = 0;
+  const slider = document.getElementById('slider');
+  const totalSlides = slider.children.length;
+
+  function moveSlide(direction) {
+    currentIndex = (currentIndex + direction + totalSlides) % totalSlides;
+    slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+  }
+
+  // Auto-slide every 5 seconds
+  setInterval(() => moveSlide(1), 5000);
+  </script>
+  
+
+</body>
+</html>
